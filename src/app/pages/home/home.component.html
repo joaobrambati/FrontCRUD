@@ -1,0 +1,46 @@
+<div class="container mt-5">
+    <button class="btn btn-success w-100" [routerLink]="['/cadastro']" routerLinkActive="router-link-active" >Cadastrar novo Usuário</button>
+    <div>
+        <label class="form-label">Pesquisar:</label>
+        <input class="form-control" type="text" placeholder="Digite o usuário..." (input)="search($event)">
+    </div>
+
+    <table class="table table-hover table-bordered mt-5">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Cargo</th>
+                <th>Salário</th>
+                <th>Situação</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if(usuarios.length > 0) { <!-- Verifica se existe usuario -->
+                @for(usu of usuarios; track $index) {
+                    <tr>
+                        <td>{{usu.id}}</td>
+                        <td>{{usu.nomeCompleto}}</td>
+                        <td>{{usu.email}}</td>
+                        <td>{{usu.cargo}}</td>
+                        <td>{{usu.salario}}</td>
+                        <td>{{usu.situacao == true ?"Ativo":"Inativo"}}</td>
+                        <td>
+                            <button class="btn btn-warning mx-2">Editar</button>
+                            <button class="btn btn-info mx-2">Detalhes</button>
+                            <button class="btn btn-danger mx-2" (click)="deletar(usu.id)">Excluir</button>
+                        </td>
+                    </tr>
+                }
+            }
+            @else {
+                <tr class="text-center">
+                    <td colspan="7">Nenhum usuário cadastrado</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
